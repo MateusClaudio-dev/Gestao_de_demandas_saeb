@@ -1,0 +1,7 @@
+/*
+
+fetchall(): retorna varias linhas da consulta.
+extract(): transformar índices de um array em variáveis.
+json_encode(): Converte para JSON
+
+*/
