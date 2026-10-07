@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -14,7 +15,7 @@
 
             <div class="modal-header">
                 <div class="modal-title">
-                    <h2>Cadastrar demanda</h2>
+                    <h2>Cadastrar agendamento</h2>
                 </div>
                 <div class="modal-close">X</div>
 
@@ -23,43 +24,25 @@
             <form action="action-event.php" method="post">
 
                 <div class="modal-body">
+                    <input type="hidden" name="id" id="id">                    
+                    <input type="hidden" name="action" value="">
 
-                    <label for="title">Titulo da demanda</label>
-                    <input type="text" name="title" id="title"  required>
+                    <label for="title">Titulo</label>
+                    <input type="text" name="title" id="title">
 
                     <label for="description">Descrição </label>
                     <textarea name="description" id="descrption" cols="30" rows="5"></textarea>
 
                     <label for="start">Data de início</label>
-                    <input type="datetime-local" name="start" id="start"  required>
+                    <input type="datetime-local" name="start" id="start">
 
                     <label for="end">Data de termino</label>
-                    <input type="datetime-local" name="end" id="end" required>
-
-                    <!-- <label for="color">Selecione a prioridade da demanda</label>
-                    <div class="container-priority hidden">
-
-                        <div class="container-color">
-                            <input type="color" name="color" id="color" value="red">
-                            <label for="color">Urgente</label>
-                        </div>
-
-                        <div class="container-color">
-                            <input type="color" name="color" id="color" value="yellow">
-                            <label for="color">Atenção</label>
-                        </div>
-                        <div class="container-color">
-                            <input type="color" name="color" id="color" value="green">
-                            <label for="color">No prazo</label>
-                        </div>
-                        
-                    </div> -->
-
+                    <input type="datetime-local" name="end" id="end">
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit">Salvar</button>
-                    <button type="hidden">Deletar</button>
+                    <button type="submit" class="btn-saave">Salvar</button>
+                    <button type="hidden" class="btn-delete hidden">Deletar</button>
                 </div>
 
             </form>
@@ -67,6 +50,9 @@
     </div>
 
         <div class="calendar-area">
+            <div class="calendar-area-header">
+                <?php if (!empty($_SESSION['msg'])) echo $_SESSION['msg']; unset($_SESSION['msg']);?>
+            </div>
             <div id='calendar'></div>
         </div> 
     
