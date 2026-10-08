@@ -24,14 +24,14 @@ body {
     padding: 10px;
     color: white;
     border-radius: 6px;
-    background-color: red;
+    background-color:var(--fc-button-bg-color);;
 }
 
 .alert-succes {
     padding: 10px;
     color: white;
     border-radius: 5px;
-    background-color: red;
+    background-color: var(--fc-button-bg-color);
 }
 
 

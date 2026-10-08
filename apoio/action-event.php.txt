@@ -2,7 +2,8 @@
 
 session_start(): session_start() cria uma sessão ou continua a sessão atual baseado em um ID de sessão passado via GET ou POST, ou passado via cookie.
 filter_input_array(): Esta função é útil para receber muitos valores sem repetidamente chamar a função filter_input().
-bindValue(:param, $value): Vincula um valor a um 'parametro', seguido de seu  valor, para ser usada na instrução SQL que preparar a instrução.
+bindValue(:param, $value): Vincula um valor a um 'parametro', seguido de seu valor, para ser usada na instrução SQL que preparar a instrução.
 $_SESSION[key] = value: Armazenar e acessar variáveis de sessão.
 header(): é usado para enviar um cabeçalho HTTP bruto.
+implode(', ', $array): Junta os elementos do array usando uma virgula (,) como delimitador e retorna as chaves do array '$dados'
 */

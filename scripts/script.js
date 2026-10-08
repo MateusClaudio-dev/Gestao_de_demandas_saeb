@@ -26,25 +26,33 @@ document.addEventListener('DOMContentLoaded', function() {
         eventResize: function(info) {
             console.log(info)
         },
-         events: 'event-list.php',
-         event: 'modal.js',
+        events: 'event-list.php',
     });
 
+    // Exibi Modal
     const modal = document.querySelector('.modal-opened');
     function abrirModal(info) {
         if (modal.classList.contains('hidden')) {
             modal.classList.remove('hidden');
                 
-            // modal.style.transition = 'opacity 300ms';
-            // setTimeout(() => modal.style.opacity = 1, 100);
+            modal.style.transition = 'opacity 300ms';
+            setTimeout(() => modal.style.opacity = 1, 100);
         }
+        
+        // Deixa horario pré-definido no modal
+        document.querySelector('#start').value = info.dateStr + "8:00";
+        document.querySelector('#end').value = info.dateStr + "18:00";
     }
 
+    // Fecha Modal clicando no (X)
     document.querySelector('.modal-close').addEventListener('click', () => fecharModal());
+
+    // Fecha Modal clicando em área fora do modal
     modal.addEventListener('click', function(event) {
         if (event.target === this) fecharModal();
     });
 
+    // Fecha Modal com a tecla (esc)
     document.addEventListener('keydown', function(event) {
         console.log(event);
         if (event.key === 'Escape') {
@@ -53,8 +61,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function fecharModal() {
-        // alert('fechou');
         modal.classList.add('hidden');
+        // modal.style.transition = 'opacity 300ms';
+        // setTimeout(() => modal.style.opacity = 1, 100);
     }
     calendar.render();
     
