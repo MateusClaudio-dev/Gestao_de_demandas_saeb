@@ -49,9 +49,9 @@
 }
 
 .modal-body label {
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 500;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
 }
 
 .modal-body input,
@@ -61,11 +61,12 @@ textarea {
 }
 
 .modal-body input[type=color] {
-    width: 30px;
-    height: 30px;
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
 }
 
-.container-priority {
+.container-colors {
     display: flex;
     justify-content: space-between;
 }

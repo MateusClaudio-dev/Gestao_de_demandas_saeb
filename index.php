@@ -15,23 +15,44 @@
 
             <div class="modal-header">
                 <div class="modal-title">
-                    <h2>Cadastrar agendamento</h2>
+                    <h2>Cadastrar evento</h2>
                 </div>
                 <div class="modal-close">X</div>
 
             </div>
 
-            <form action="action-event.php" method="post">
+            <form action="action-event.php" method="post" id="form-add-event">
 
                 <div class="modal-body">
                     <input type="hidden" name="id" id="id">                    
-                    <input type="hidden" name="action" value="">
+                    <input type="hidden" name="action" id="action"value="">
 
                     <label for="title">Titulo</label>
                     <input type="text" name="title" id="title">
 
-                    <label for="description">Descrição </label>
-                    <textarea name="description" id="descrption" cols="30" rows="5"></textarea>
+                    <!-- <label for="color">Selecione uma cor para categorizar o evento</label>
+                    <input type="color" name="color" value="#2c3e50"> -->
+
+                    <!-- <label for="description">Descrição </label>
+                    <textarea name="description" id="descrption" cols="30" rows="5"></textarea> -->
+
+                    <!-- <label for="color">Atribua a prioridade do agendamento</label>
+
+                    <div class="container-colors">
+                        <div class="container-green">
+                            <input type="radio" name="green" id="green" value="green">
+                            <label for="green">Baixa</label>
+                        </div>
+                        <div class="container-yellow">
+                            <input type="radio" name="yellow" id="yellow" value="yellow">
+                            <label for="yellow">Média</label>
+                        </div>
+                        <div class="conatiner-red">
+                            <input type="radio" name="red" id="red" value="red">
+                            <label for="red">Alta</label>
+                        </div>
+                    </div> -->
+                    
 
                     <label for="start">Data de início</label>
                     <input type="datetime-local" name="start" id="start">

@@ -15,10 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
         dayMaxEvents: true,
         dateClick: function(info) {
             abrirModal(info);
-            console.log(info)
         },
         eventClick: function(info) {
-            console.log(info)
+            abrirModalEdicao(info)
         },
         eventDrop: function(info) {
             console.log(info)
@@ -28,6 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         events: 'event-list.php',
     });
+
+    calendar.render();
 
     // Exibi Modal
     const modal = document.querySelector('.modal-opened');
@@ -40,9 +41,36 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Deixa horario pré-definido no modal
-        document.querySelector('#start').value = info.dateStr + "8:00";
-        document.querySelector('#end').value = info.dateStr + "18:00";
+        document.querySelector('#start').value = info.dateStr + " 8:00";
+        document.querySelector('#end').value = info.dateStr + " 18:00";
     }
+    
+    function abrirModalEdicao(info) {
+        if (modal.classList.contains('hidden')) {
+            modal.classList.remove('hidden');
+                
+            modal.style.transition = 'opacity 300ms';
+            setTimeout(() => modal.style.opacity = 1, 100);
+        }
+
+        let data_start = [
+            info.event.start.toLocaleString().replace(',', '').split(' ')[0].split('/').reverse().join('-'),
+            info.event.start.toLocaleString().replace(',', '').split(' ')[1]
+        ].join(' ');
+
+        let data_end = [
+            info.event.end.toLocaleString().replace(',', '').split(' ')[0].split('/').reverse().join('-'),
+            info.event.end.toLocaleString().replace(',', '').split(' ')[1]
+        ].join(' ');
+
+        document.querySelector('.modal-title h2').innerHTML = 'Editar evento';
+        document.querySelector('#id').value = info.event.id;
+        document.querySelector('#title').value = info.event.title
+        // document.querySelector('#color').value = info.event.backgroundColor;
+        document.querySelector('#start').value = data_start;
+        document.querySelector('#end').value = data_end;
+        document.querySelector('.btn-delete').classList.remove('hidden');
+    };
 
     // Fecha Modal clicando no (X)
     document.querySelector('.modal-close').addEventListener('click', () => fecharModal());
@@ -62,9 +90,34 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function fecharModal() {
         modal.classList.add('hidden');
-        // modal.style.transition = 'opacity 300ms';
-        // setTimeout(() => modal.style.opacity = 1, 100);
     }
-    calendar.render();
-    
+
+    let form_add_event = document.querySelector('#form-add-event');
+
+    form_add_event.addEventListener('submit', function(event) {
+        event.preventDefault();
+        let title = document.querySelector('#title');
+        let start = document.querySelector('#start');
+
+        if (title.value == '') {
+            title.placeholder = 'Campo obrigatório*';
+            title.style.borderColor = 'red';
+            title.focus();
+            return false;
+        } 
+        if (start.value == '') {
+            start.style.borderColor = 'red';
+            start.focus();
+            return false;
+        }
+        this.submit();
+    });
+    document.querySelector('.btn-delete').addEventListener('click', function() {
+        if (confirm('Você confirma a exclusão do evento? Esta ação não pode ser desfeita!')) {
+            document.querySelector('#action').value = 'delete';
+            form_add_event.submit();
+            return true;
+        }
+        return false;
+    })
 });

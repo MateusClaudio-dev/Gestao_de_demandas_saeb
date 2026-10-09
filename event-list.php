@@ -2,15 +2,14 @@
 session_start();
 include_once "db.php";
 
-// $sql = $db->query("SELECT id, title,  'start', 'end' FROM  events");
 $sql = $db->query("SELECT * FROM events");
 
 # Retorna uma coleção de array
 $events = $sql->fetchall();
 
-$array_event = [];
 
 # Percorre o retorno da query (coleção de array)
+$array_event = [];
 foreach($events as $event) {
     # Transforma as key do array em variavies.
     extract($event); 
