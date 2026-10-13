@@ -1,0 +1,5 @@
+encodeURIComponent: Transforma em componente de URL
+
+AJAX: O AJAX (que significa Asynchronous JavaScript and XML, ou JavaScript e XML Assíncronos) 
+é uma técnica usada no desenvolvimento web para permitir que o navegador comunique com o servidor 
+em segundo plano, sem precisar recarregar a página inteira.

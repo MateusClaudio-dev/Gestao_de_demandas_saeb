@@ -18,7 +18,7 @@ foreach($events as $event) {
     $array_event[] = [  
         'id' => $id,
         'title' => $title,
-        'description' => $description,
+        'color' => $color,
         'start' => $start,
         'end' => $end,
     ];

@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
             abrirModalEdicao(info)
         },
         eventDrop: function(info) {
-            console.log(info)
+            moverEvento(info)
         },
         eventResize: function(info) {
             console.log(info)
@@ -41,8 +41,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         // Deixa horario pré-definido no modal
-        document.querySelector('#start').value = info.dateStr + " 8:00";
+        document.querySelector('#start').value = info.dateStr + " 08:00";
         document.querySelector('#end').value = info.dateStr + " 18:00";
+  
     }
     
     function abrirModalEdicao(info) {
@@ -53,20 +54,28 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => modal.style.opacity = 1, 100);
         }
 
+        // Formata data/hora 
         let data_start = [
             info.event.start.toLocaleString().replace(',', '').split(' ')[0].split('/').reverse().join('-'),
             info.event.start.toLocaleString().replace(',', '').split(' ')[1]
-        ].join(' ');
-
-        let data_end = [
+        ].join('T');
+        
+        let data_end = '';
+        if (info.event.end) {
+            data_end = [
             info.event.end.toLocaleString().replace(',', '').split(' ')[0].split('/').reverse().join('-'),
             info.event.end.toLocaleString().replace(',', '').split(' ')[1]
-        ].join(' ');
+            ].join('T');
+        } else {
+            data_end = '';
+        }
 
+        console.log(info)
+        // Carrega os inputs com os valores pré-defindos
         document.querySelector('.modal-title h2').innerHTML = 'Editar evento';
         document.querySelector('#id').value = info.event.id;
-        document.querySelector('#title').value = info.event.title
-        // document.querySelector('#color').value = info.event.backgroundColor;
+        document.querySelector('#title').value = info.event.title;
+        document.querySelector('#priority').value = info.event.backgroundColor;;
         document.querySelector('#start').value = data_start;
         document.querySelector('#end').value = data_end;
         document.querySelector('.btn-delete').classList.remove('hidden');
@@ -92,8 +101,8 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.classList.add('hidden');
     }
 
+    // Determina os campos obrigatórios
     let form_add_event = document.querySelector('#form-add-event');
-
     form_add_event.addEventListener('submit', function(event) {
         event.preventDefault();
         let title = document.querySelector('#title');
@@ -120,4 +129,33 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return false;
     })
+
+    function moverEvento(info) {
+        let id = info.event.id
+        let title = info.event.title
+        let start = info.event.startStr
+        let end = info.event.endStr ? info.event.endStr : '';
+
+        let data = {id, title, start, end};
+
+        let urlEncodeData = Object.keys(data).map(key => encodeURIComponent(key) + '=' + encodeURIComponent
+        (data[key])).join('&');
+
+        
+         
+        var ajax = new XMLHttpRequest();
+        // Configura para onde vai o pedido: (método, arquivo, e true para ser assíncrono)
+        ajax.open('POST', 'action-event.php', true);
+
+        // Define o formato em que os dados estão sendo enviados
+        ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+        // Envia os dados para o servidor
+        ajax.send(urlEncodeData);
+
+        // Fica monitorando o momento em que a resposta do servidor fica pronta
+        ajax.onreadystatechange = function() {
+            if (ajax.readyState == 4 && ajax.status == 200) var data = ajax.responseText;
+        }
+    }
 });

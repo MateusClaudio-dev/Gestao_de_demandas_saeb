@@ -25,45 +25,46 @@
 
                 <div class="modal-body">
                     <input type="hidden" name="id" id="id">                    
-                    <input type="hidden" name="action" id="action"value="">
+                    <input type="hidden" name="action" id="action" value="">
 
                     <label for="title">Titulo</label>
-                    <input type="text" name="title" id="title">
+                    <input type="text" name="title" id="title" required>
 
-                    <!-- <label for="color">Selecione uma cor para categorizar o evento</label>
-                    <input type="color" name="color" value="#2c3e50"> -->
-
-                    <!-- <label for="description">Descrição </label>
-                    <textarea name="description" id="descrption" cols="30" rows="5"></textarea> -->
-
-                    <!-- <label for="color">Atribua a prioridade do agendamento</label>
-
-                    <div class="container-colors">
-                        <div class="container-green">
-                            <input type="radio" name="green" id="green" value="green">
-                            <label for="green">Baixa</label>
-                        </div>
-                        <div class="container-yellow">
-                            <input type="radio" name="yellow" id="yellow" value="yellow">
-                            <label for="yellow">Média</label>
-                        </div>
-                        <div class="conatiner-red">
-                            <input type="radio" name="red" id="red" value="red">
-                            <label for="red">Alta</label>
-                        </div>
-                    </div> -->
                     
+                    <label for="title">Selecione a prioridade</label>
+                    <div class="container-prioridade">
+                        <div class="prioridade normal">
+                            <label for="normal">Normal</label>
+                            <input type="radio" value="#2c3e50" name="color" id="priority" >
+                        </div>
+
+                        <div class="prioridade baixa">
+                            <label for="baixa">Baixa</label>
+                            <input type="radio" value="#10a710" name="color" id="priority">
+                        </div>
+
+                        <div class="prioridade media">
+                            <label for="media">Média</label>
+                            <input type="radio" value="#e4861a" name="color" id="priority">
+                        </div>
+                        <div class="prioridade alta">
+                            <label for="alta">Alta</label>
+                            <input type="radio" value="#FF0000" name="color" id="priority">
+                        </div>
+                    </div>
 
                     <label for="start">Data de início</label>
-                    <input type="datetime-local" name="start" id="start">
+                    <input type="datetime-local" name="start" id="start" required>
 
                     <label for="end">Data de termino</label>
                     <input type="datetime-local" name="end" id="end">
+                    
+                    
                 </div>
 
                 <div class="modal-footer">
                     <button type="submit" class="btn-saave">Salvar</button>
-                    <button type="hidden" class="btn-delete hidden">Deletar</button>
+                    <button type="button" class="btn-delete hidden">Deletar</button>
                 </div>
 
             </form>
@@ -71,16 +72,15 @@
     </div>
 
         <div class="calendar-area">
+            
             <div class="calendar-area-header">
                 <?php if (!empty($_SESSION['msg'])) echo $_SESSION['msg']; unset($_SESSION['msg']);?>
             </div>
             <div id='calendar'></div>
         </div> 
     
-
-
-    <script src="core/locales/pt-br.global.min.js"></script>
     <script src="dist/index.global.min.js"></script>
+    <script src="core/locales/pt-br.global.min.js"></script>
     <script src="scripts/script.js"></script>
 </body>
 </html>

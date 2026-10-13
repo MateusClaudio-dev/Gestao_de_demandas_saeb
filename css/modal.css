@@ -66,17 +66,40 @@ textarea {
     height: 40px;
 }
 
-.container-colors {
+.container-prioridade {
     display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
     justify-content: space-between;
 }
 
-.container-color {
-    padding: 10px;
+.prioridade {
     display: flex;
     align-items: center;
-    flex-direction: column;
+    border-radius: 6px;
+    color: black;
+}
 
+.prioridade label, 
+.prioridade input {
+    padding: 5px;
+    cursor: pointer;   
+}
+
+
+.prioridade.normal {
+background-color: #929394;
+}
+.prioridade.baixa {
+    background-color: #00FF00;
+}
+
+.prioridade.media {
+    background-color: #e4861a;
+}
+
+.prioridade.alta {
+    background-color: #FF0000;
 }
 
 .modal-footer {
