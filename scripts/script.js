@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
         editable: true,
         dayMaxEvents: true,
         dateClick: function(info) {
-            abrirModal(info);
+            abrirModalAgendamento(info);
         },
         eventClick: function(info) {
             abrirModalEdicao(info)
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Exibi Modal
     const modal = document.querySelector('.modal-opened');
-    function abrirModal(info) {
+    function abrirModalAgendamento(info) {
         if (modal.classList.contains('hidden')) {
             modal.classList.remove('hidden');
                 
@@ -82,22 +82,29 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Fecha Modal clicando no (X)
-    document.querySelector('.modal-close').addEventListener('click', () => fecharModal());
+    document.querySelector('.modal-close').addEventListener('click', () => {
+        fecharModalConfirmacao();
+        fecharModalAgendamento();
+    });
 
     // Fecha Modal clicando em área fora do modal
     modal.addEventListener('click', function(event) {
-        if (event.target === this) fecharModal();
+        if (event.target === this) {
+            fecharModalConfirmacao();
+            fecharModalAgendamento();
+        }
     });
 
     // Fecha Modal com a tecla (esc)
     document.addEventListener('keydown', function(event) {
         console.log(event);
         if (event.key === 'Escape') {
-            fecharModal();
+            fecharModalConfirmacao();
+            fecharModalAgendamento();
         }
     });
 
-    function fecharModal() {
+    function fecharModalAgendamento() {
         modal.classList.add('hidden');
     }
 
@@ -122,13 +129,37 @@ document.addEventListener('DOMContentLoaded', function() {
         this.submit();
     });
     document.querySelector('.btn-delete').addEventListener('click', function() {
-        if (confirm('Você confirma a exclusão do evento? Esta ação não pode ser desfeita!')) {
+        containerConfirmacaoExclusao();
+    })
+
+    
+
+    function containerConfirmacaoExclusao() {
+        let containerConfirmacao = document.getElementById('container-confirmacao');
+        var buttonSim = document.getElementById('button-sim');
+        var buttonNao = document.getElementById('button-nao');
+
+        if (containerConfirmacao.style.display === 'none') {
+            containerConfirmacao.style.display = 'block';
+        } else {
+            containerConfirmacao.style.display = 'none';
+        };
+
+        buttonSim.addEventListener('click', () =>{
             document.querySelector('#action').value = 'delete';
             form_add_event.submit();
             return true;
-        }
-        return false;
-    })
+        });
+        
+        buttonNao.addEventListener('click', () => {
+            fecharModalConfirmacao();
+        })
+    }
+
+    function fecharModalConfirmacao() {
+        let containerConfirmacao = document.getElementById('container-confirmacao');
+        containerConfirmacao.style.display = 'none';
+    }
 
     function moverEvento(info) {
         let id = info.event.id

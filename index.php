@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css"> 
     <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/modal-confirmacao.css">
     <title>RegistraAI</title>
 </head>
 <body>
@@ -58,21 +59,27 @@
 
                     <label for="end">Data de termino</label>
                     <input type="datetime-local" name="end" id="end">
-                    
-                    
                 </div>
 
                 <div class="modal-footer">
                     <button type="submit" class="btn-saave">Salvar</button>
                     <button type="button" class="btn-delete hidden">Deletar</button>
                 </div>
-
             </form>
         </div> 
     </div>
 
+    <div class="container-confirmacao" id="container-confirmacao">
+        <div class="title-confirmacao">
+            <h4>Você confirma exclusão do evento? <br>Esta ação não pode ser desfeita!</h4>
+        </div>
+        <div class="buttons-confirmacao">
+            <button type="submit" id="button-sim">SIM</button>
+            <button type="submit" id="button-nao">NÃO</button>
+        </div>
+    </div>
+
         <div class="calendar-area">
-            
             <div class="calendar-area-header">
                 <?php if (!empty($_SESSION['msg'])) echo $_SESSION['msg']; unset($_SESSION['msg']);?>
             </div>
