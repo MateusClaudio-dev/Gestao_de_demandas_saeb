@@ -30,8 +30,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     calendar.render();
 
-    // Exibi Modal
     const modal = document.querySelector('.modal-opened');
+    const caledarArea = document.querySelector('.calendar-area');
+
     function abrirModalAgendamento(info) {
         if (modal.classList.contains('hidden')) {
             modal.classList.remove('hidden');
@@ -39,6 +40,9 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.transition = 'opacity 300ms';
             setTimeout(() => modal.style.opacity = 1, 100);
         }
+
+        // impedede interação com o caléndario
+        caledarArea.style.pointerEvents = 'none';
         
         // Deixa horario pré-definido no modal
         document.querySelector('#start').value = info.dateStr + " 08:00";
@@ -53,6 +57,9 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.transition = 'opacity 300ms';
             setTimeout(() => modal.style.opacity = 1, 100);
         }
+
+        // impedede interação com o caléndario
+        // caledarArea.style.pointerEvents = 'none';
 
         // Formata data/hora 
         let data_start = [
@@ -71,11 +78,19 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         console.log(info)
+        
         // Carrega os inputs com os valores pré-defindos
         document.querySelector('.modal-title h2').innerHTML = 'Editar evento';
         document.querySelector('#id').value = info.event.id;
         document.querySelector('#title').value = info.event.title;
-        document.querySelector('#priority').value = info.event.backgroundColor;;
+
+        document.querySelectorAll('input[name="color"]').forEach(radio => {
+            radio.checked = false
+        });
+
+        const radioCor = document.querySelector(`input[name="color"][value="${info.event.backgroundColor}"]`);
+        if (radioCor) radioCor.checked = true;
+
         document.querySelector('#start').value = data_start;
         document.querySelector('#end').value = data_end;
         document.querySelector('.btn-delete').classList.remove('hidden');
@@ -106,6 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function fecharModalAgendamento() {
         modal.classList.add('hidden');
+        caledarArea.style.pointerEvents = 'auto';
     }
 
     // Determina os campos obrigatórios
@@ -128,37 +144,50 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         this.submit();
     });
+
+    // Exigir confirmação do utilizador para deletar evento
     document.querySelector('.btn-delete').addEventListener('click', function() {
-        containerConfirmacaoExclusao();
+        modalConfirmacaoExclusao();
     })
-
     
+    function modalConfirmacaoExclusao() {
+        modal.style.pointerEvents = 'none';
+        caledarArea.style.pointerEvents = 'none';
 
-    function containerConfirmacaoExclusao() {
-        let containerConfirmacao = document.getElementById('container-confirmacao');
+
+        let modalConfirmacao = document.getElementById('modal-confirmacao');
         var buttonSim = document.getElementById('button-sim');
         var buttonNao = document.getElementById('button-nao');
 
-        if (containerConfirmacao.style.display === 'none') {
-            containerConfirmacao.style.display = 'block';
+        // Checa o estado real do elemento (mesmo que ele venha do CSS).
+        let estadoDisplay = window.getComputedStyle(modalConfirmacao).display;
+
+        if (estadoDisplay === 'none') {
+            modalConfirmacao.style.display = 'block';
         } else {
-            containerConfirmacao.style.display = 'none';
+            modalConfirmacao.style.display = 'none';
         };
 
         buttonSim.addEventListener('click', () =>{
             document.querySelector('#action').value = 'delete';
             form_add_event.submit();
+            modal.style.pointerEvents = 'auto';
+            caledarArea.style.pointerEvents = 'auto';
             return true;
+            
         });
         
         buttonNao.addEventListener('click', () => {
             fecharModalConfirmacao();
+            modal.style.pointerEvents = 'auto';
+            caledarArea.style.pointerEvents = 'auto';
         })
     }
 
     function fecharModalConfirmacao() {
-        let containerConfirmacao = document.getElementById('container-confirmacao');
-        containerConfirmacao.style.display = 'none';
+        let modalConfirmacao = document.getElementById('modal-confirmacao');
+        modalConfirmacao.style.display = 'none';
+        caledarArea.style.pointerEvents = 'auto';
     }
 
     function moverEvento(info) {
@@ -188,5 +217,15 @@ document.addEventListener('DOMContentLoaded', function() {
         ajax.onreadystatechange = function() {
             if (ajax.readyState == 4 && ajax.status == 200) var data = ajax.responseText;
         }
+    }
+
+    // Configurar o tempo de exibição das (_$SSESION) - Resposta das interações dos usúarios.
+    let alerts = document.querySelector('.calendar-area-header');
+    if (!alerts.innerHTML == '') {
+        setTimeout(() => {
+            alerts.style.transition = 'opacity 0.5 ease';
+            alerts.style.transition = 0;
+            setTimeout(() => {alerts.style.display = 'none';})
+        }, 3000);
     }
 });

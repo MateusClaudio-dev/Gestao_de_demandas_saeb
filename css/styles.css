@@ -14,10 +14,16 @@ body {
     padding: 0;
 }
 
-#calendar,
+#calendar {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
 .calendar-area-header {
     max-width: 1100px;
     margin: 0 auto;
+    opacity: 1;
+    transition: opacity 0.5s ease;
 }
 
 .alert-danger,
@@ -28,4 +34,20 @@ body {
     background-color:var(--fc-button-bg-color);;
 }
 
+/* celulares pequenos e médios */
+@media (max-width: 480px) {
 
+}
+
+/* Celulares padrão (Plus e Max). */
+@media (max-width: 576px) {
+.fc-toolbar-chunk {
+    display: flex;
+    flex-direction: row;
+}
+}
+
+/* celulares grandes deitados */
+@media (max-width: 768px) {
+
+}

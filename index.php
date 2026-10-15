@@ -34,23 +34,19 @@
                     
                     <label for="title">Selecione a prioridade</label>
                     <div class="container-prioridade">
-                        <div class="prioridade normal">
-                            <label for="normal">Normal</label>
-                            <input type="radio" value="#2c3e50" name="color" id="priority" >
-                        </div>
 
                         <div class="prioridade baixa">
                             <label for="baixa">Baixa</label>
-                            <input type="radio" value="#10a710" name="color" id="priority">
+                            <input type="radio" value="#64ee64" name="color" id="priority-baixa">
                         </div>
 
                         <div class="prioridade media">
                             <label for="media">Média</label>
-                            <input type="radio" value="#e4861a" name="color" id="priority">
+                            <input type="radio" value="#e9a558" name="color" id="priority-media">
                         </div>
                         <div class="prioridade alta">
                             <label for="alta">Alta</label>
-                            <input type="radio" value="#FF0000" name="color" id="priority">
+                            <input type="radio" value="#e94b4b" name="color" id="priority-alta">
                         </div>
                     </div>
 
@@ -69,23 +65,25 @@
         </div> 
     </div>
 
-    <div class="container-confirmacao" id="container-confirmacao">
-        <div class="title-confirmacao">
-            <h4>Você confirma exclusão do evento? <br>Esta ação não pode ser desfeita!</h4>
-        </div>
-        <div class="buttons-confirmacao">
-            <button type="submit" id="button-sim">SIM</button>
-            <button type="submit" id="button-nao">NÃO</button>
+    <div class="container-modal-confirmacao">
+        <div class="modal-confirmacao" id="modal-confirmacao">
+            <div class="title-confirmacao">
+                <h4>Você confirma exclusão do evento? <br>Esta ação não pode ser desfeita!</h4>
+            </div>
+            <div class="buttons-confirmacao">
+                <button type="submit" id="button-sim">SIM</button>
+                <button type="submit" id="button-nao">NÃO</button>
+            </div>
         </div>
     </div>
 
-        <div class="calendar-area">
-            <div class="calendar-area-header">
-                <?php if (!empty($_SESSION['msg'])) echo $_SESSION['msg']; unset($_SESSION['msg']);?>
-            </div>
-            <div id='calendar'></div>
-        </div> 
-    
+    <div class="calendar-area">
+        <div class="calendar-area-header">
+            <?php if (!empty($_SESSION['msg'])) echo $_SESSION['msg']; unset($_SESSION['msg']);?>
+        </div>
+        <div id='calendar'></div>
+    </div>
+
     <script src="dist/index.global.min.js"></script>
     <script src="core/locales/pt-br.global.min.js"></script>
     <script src="scripts/script.js"></script>
