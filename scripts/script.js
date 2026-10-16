@@ -2,9 +2,10 @@ document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
-            left: 'prev, next today',
+            // left: 'prev, next today',
+            left: '',
             center: 'title',
-            right: 'dayGridMonth, timeGridWeek, timeGridDay'
+            right: 'prev timeGridWeek dayGridMonth timeGridDay today next'
         },
         initialView: 'dayGridMonth',
         locale: 'pt-br',
@@ -57,9 +58,6 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.transition = 'opacity 300ms';
             setTimeout(() => modal.style.opacity = 1, 100);
         }
-
-        // impedede interação com o caléndario
-        // caledarArea.style.pointerEvents = 'none';
 
         // Formata data/hora 
         let data_start = [

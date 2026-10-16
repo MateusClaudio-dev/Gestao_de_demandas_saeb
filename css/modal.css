@@ -50,6 +50,7 @@
 
 .modal-body label {
     font-size: 18px;
+    
     font-weight: 500;
     margin-bottom: 5px;
 }
@@ -74,6 +75,8 @@ textarea {
 }
 
 .prioridade {
+    color: #000;
+    font-weight: 500;
     width: auto;
     display: flex;
     align-items: center;
@@ -87,20 +90,19 @@ textarea {
     cursor: pointer;   
 }
 
-
 .prioridade.normal {
 background-color: #929394;
 }
 .prioridade.baixa {
-    background-color: #64ee64;
+    background-color: rgb(172, 236, 76);
 }
 
 .prioridade.media {
-    background-color: #e9a558;
+    background-color: rgb(247, 247, 83);
 }
 
 .prioridade.alta {
-    background-color: #e94b4b;
+    background-color: rgb(252, 94, 55);
 }
 
 .modal-footer {
@@ -125,4 +127,26 @@ background-color: #929394;
 .modal-footer button:hover {
     background-color: gray;
     color: #fff;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+}
+
+
+
+@media (max-width: 576px) {
+    .modal {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin-left: calc(45% - 150px);
+}
 }

@@ -34,20 +34,51 @@ body {
     background-color:var(--fc-button-bg-color);;
 }
 
-/* celulares pequenos e médios */
-@media (max-width: 480px) {
 
-}
 
 /* Celulares padrão (Plus e Max). */
 @media (max-width: 576px) {
-.fc-toolbar-chunk {
+/* .fc-toolbar-chunk {
+    margin: 5px;
     display: flex;
-    flex-direction: row;
-}
+    flex-direction: column;
 }
 
-/* celulares grandes deitados */
-@media (max-width: 768px) {
+#fc-dom-1 {
+    text-align: center;
+    font-size: 14px;
+} */
+@media (max-width: 576px) {
+    #calendar {
+        height: 70vh;
+    }
 
+  .fc-toolbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px; /* Espaçamento entre as seções (esquerda, centro, direita) */
+  }
+
+  /* Se houver blocos internos como .fc-left, .fc-center, .fc-right ou equivalentes */
+  .fc-toolbar > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 100%;
+    padding: 0;
+  }
+
+  /* Reduzir o tamanho dos botões ou títulos para não estourar a tela */
+  .fc-toolbar h2 {
+    font-size: 16px; /* Ajuste o tamanho do mês/ano */
+    text-align: center;
+  }
+
+  .fc-button {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
 }
