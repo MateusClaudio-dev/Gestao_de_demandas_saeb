@@ -18,7 +18,7 @@ use App\Http\Controllers\EventoController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 // Route::get('evento.index', [EventoController::class, 'index'])->nome('inicio');

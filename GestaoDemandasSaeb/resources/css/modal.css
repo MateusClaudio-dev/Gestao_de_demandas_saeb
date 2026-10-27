@@ -1,0 +1,152 @@
+.modal-opened {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9;
+    opacity: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.modal {
+    position: fixed;
+    margin-top: 100px;
+    z-index: 99;
+    width: 500px;
+    margin-left: calc(50% - 250px);
+    padding: 20px;
+    border-radius: 6px;
+    background-color: #fff;
+    box-shadow: 5px 5px 1px #2c3e50;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-close {
+    cursor: pointer;
+    color: var(--fc-button-bg-color);
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.modal-close:hover {
+    font-size: 21px;
+    color: black;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.modal-body label {
+    font-size: 18px;
+    
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.modal-body input,
+textarea {
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.modal-body input[type=color] {
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+}
+
+.container-prioridade {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
+    
+}
+
+.prioridade {
+    color: #000;
+    font-weight: 500;
+    width: auto;
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    border-radius: 6px;
+}
+
+.prioridade label, 
+.prioridade input {
+    padding: 5px;
+    cursor: pointer;   
+}
+
+.prioridade.normal {
+background-color: #929394;
+}
+.prioridade.baixa {
+    background-color: rgb(172, 236, 76);
+}
+
+.prioridade.media {
+    background-color: rgb(247, 247, 83);
+}
+
+.prioridade.alta {
+    background-color: rgb(252, 94, 55);
+}
+
+.modal-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.modal-footer button {
+    background-color: var(--fc-button-bg-color);
+    color: #fff;
+    padding: 6px 15px;
+    margin-top: 5px;
+    font-size: 14px;
+    font-weight: 500px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 4px;
+    border: none;
+    cursor: pointer;
+}
+
+.modal-footer button:hover {
+    background-color: gray;
+    color: #fff;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  white-space: nowrap;
+  border: 0;
+}
+
+
+
+@media (max-width: 576px) {
+    .modal {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    margin-left: calc(45% - 150px);
+}
+}
