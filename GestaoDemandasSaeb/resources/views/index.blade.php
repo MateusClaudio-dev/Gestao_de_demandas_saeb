@@ -17,7 +17,7 @@
                     </div>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
-                <form action="action-event.php" method="post" id="form-add-event">
+                <form action="{{ route('evento.store') }}" method="post" id="form-add-event">
                     <div class="modal-body">
                         <input type="hidden" name="id" id="id">                    
                         <input type="hidden" name="action" id="action" value="">
@@ -66,7 +66,8 @@
         </div> 
     </div>
 
-    <div class="container-modal-confirmacao">
+    <!-- <div class="container-modal-confirmacao"> -->
+    <div class="modal fade" id="modalEvento" tabindex="-1">
         <div class="modal-confirmacao" id="modal-confirmacao">
             <div class="title-confirmacao">
                 <h4>Você confirma exclusão do evento? <br>Esta ação não pode ser desfeita!</h4>
