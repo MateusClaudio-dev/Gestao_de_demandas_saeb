@@ -24,27 +24,17 @@ class EventoController extends Controller
         # Apresenta o calendário (FullCalendar)
         return view('index', ['eventos' => $eventos]);
     }
-
-    // public function create(EventoRequest $request)
-    // {
        
     public function store(EventoRequest $request)
     {
-         $request->validated();
+        $dados = $request->validated();
 
         try {
-            $evento = Evento::create([
-                'titulo' => $request->titulo,
-                'inicio' => $request->inicio,
-                'termino' => $request->termino,
-            ]);
+            $evento = Evento::create($dados);
 
-            // Salvar log
-            Log::info('Evento salvo', ['id' => $evento->id, 'titulo' => $evento->titulo]);
+            return redirect()->route('evento.index')->with('success', 'Agendamento salvo com sucesso!');
 
-        } catch (PDOexception $error) {
-
-            Log::error('Erro ao tentar salvar evento',['error' => $error->getMessage()]);
+        } catch (PDOException $error) {
 
             return back()->withInput()->with('error', 'Não foi possível salvar o agendamento. Tente novamente mais tarde');
         }
@@ -52,18 +42,27 @@ class EventoController extends Controller
         
     }
     
-    public function show()
+    public function update(EventoRequest $request, Evento $eventoSelecionado)
     {
+        $dados = $request->validated();
 
-    }
-    public function edit()
-    {
+        try {
+            $eventoSelecionado->update([
+                'title' => $request->title,
+                'start' => $request->start,
+                'end' => $request->end,
+            ]);
 
-    }
-    public function update()
-    {
+            return redirect()->route('evento.index')->with('success', 'Agendamento atualizado com sucesso!');
 
+        } catch (PDOException $error) {
+
+            // Log::error('Erro ao tentar atualizar evento',['error' => $error->getMessage()]);
+
+            return back()->withInput()->with('error', 'Não foi possível atualizar o agendamento. Tente novamente mais tarde');
+        }
     }
+
     public function destroy(Evento $eventoSelecionado) 
     {
         $eventoSelecionado->delete();
