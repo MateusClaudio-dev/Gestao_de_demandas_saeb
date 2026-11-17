@@ -22,16 +22,23 @@ class EventoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'titulo' => 'required',
-            'inicio' => 'required',
+            'title' => ['required', 'string', 'max:255'],
+            'color' => ['nullable', 'in:#64ee64,#e9a558,#e94b4b'],
+            'start' => ['required', 'date'],
+            'end' => ['nullable', 'date', 'after:start'],
         ];
     }
 
     public function messages(): array
     {
         return[
-            'titulo.required' => 'O Campo titulo é obrigatório',
-            'inicio.required' => 'O Campo início é obrigatório'
+            'title.required' => 'O Campo título é obrigatório',
+            'title.max' => 'O Campo título deve ter no máximo 255 caracteres',
+            'color.in' => 'Prioridade inválida',
+            'start.required' => 'O Campo início é obrigatório',
+            'start.date' => 'O Campo início deve ser uma data válida',
+            'end.date' => 'O Campo término deve ser uma data válida',
+            'end.after' => 'O Campo término deve ser uma data posterior à data de início'
         ];
     }
 }
