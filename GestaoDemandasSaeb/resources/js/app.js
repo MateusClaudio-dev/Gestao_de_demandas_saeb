@@ -4,6 +4,9 @@ import { Modal } from 'bootstrap';
 
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
+
+    // Obtém a string JSON do atributo data-eventos e converte em um array JavaScript
+    const eventos = JSON.parse(calendarEl.dataset.eventos);
     var calendar = new FullCalendar.Calendar(calendarEl, {
         headerToolbar: {
             // left: 'prev, next today',
@@ -19,6 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         editable: true,
         dayMaxEvents: true,
         dateClick: function(info) {
+
             console.log('dateClick disparou', info.dateStr);
             abrirModalAgendamento(info);
         },
@@ -31,18 +35,17 @@ document.addEventListener('DOMContentLoaded', function() {
         eventResize: function(info) {
             console.log(info)
         },
-        // events: 'event-list.php',
 
-        events: [
-            { id: 1, title: 'Reunião SAEB', start: '2026-10-28T09:00:00', end: '2026-10-28T11:00:00', color: '#e94b4b' },
-            { id: 2, title: 'Entrega de relatório', start: '2026-10-30', color: '#64ee64' },
-        ],
+        events: eventos,
 
     });
 
     calendar.render();
 
     const modalEvento = new Modal(document.getElementById('modalEvento'));
+    const modalConfirmacaoExclusao = new Modal(
+        document.getElementById('modalConfirmacaoExclusao')
+    );
     const caledarArea = document.querySelector('.calendar-area');
 
     function abrirModalAgendamento(info) {
@@ -50,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Deixa horario pré-definido no modal
         document.querySelector('#start').value = info.dateStr + " 08:00";
         document.querySelector('#end').value = info.dateStr + " 18:00";
+        document.querySelector('.btn-delete').classList.add('hidden');
         modalEvento.show();
   
     }
@@ -62,6 +66,8 @@ document.addEventListener('DOMContentLoaded', function() {
             info.event.start.toLocaleString().replace(',', '').split(' ')[1]
         ].join('T');
         
+        console.log('data_start', data_start);
+
         let data_end = '';
         if (info.event.end) {
             data_end = [
@@ -76,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.modal-title h2').innerHTML = 'Editar evento';
         document.querySelector('#id').value = info.event.id;
         document.querySelector('#title').value = info.event.title;
+        document.querySelector('.btn-delete').classList.remove('hidden');
 
         document.querySelectorAll('input[name="color"]').forEach(radio => {
             radio.checked = false
@@ -110,50 +117,17 @@ document.addEventListener('DOMContentLoaded', function() {
         this.submit();
     });
 
-    // Exigir confirmação do utilizador para deletar evento
-    document.querySelector('.btn-delete').addEventListener('click', function() {
-        modalConfirmacaoExclusao();
-    })
+    // Esconde o modal de edição/agendamento quando o botão deletar é clicado
+    const botaoExcluir = document.querySelector('.btn-delete');
+    const elementoModalEvento = document.getElementById('modalEvento');
+    botaoExcluir.addEventListener('click', function() {
+        elementoModalEvento.addEventListener('hidden.bs.modal', function() {
+            modalConfirmacaoExclusao.show();
+        }, { once: true });
+
+        modalEvento.hide();
+    });
     
-    function modalConfirmacaoExclusao() {
-        modal.style.pointerEvents = 'none';
-        caledarArea.style.pointerEvents = 'none';
-
-
-        let modalConfirmacao = document.getElementById('modal-confirmacao');
-        var buttonSim = document.getElementById('button-sim');
-        var buttonNao = document.getElementById('button-nao');
-
-        // Checa o estado real do elemento (mesmo que ele venha do CSS).
-        let estadoDisplay = window.getComputedStyle(modalConfirmacao).display;
-
-        if (estadoDisplay === 'none') {
-            modalConfirmacao.style.display = 'block';
-        } else {
-            modalConfirmacao.style.display = 'none';
-        };
-
-        buttonSim.addEventListener('click', () =>{
-            document.querySelector('#action').value = 'delete';
-            form_add_event.submit();
-            modal.style.pointerEvents = 'auto';
-            caledarArea.style.pointerEvents = 'auto';
-            return true;
-            
-        });
-        
-        buttonNao.addEventListener('click', () => {
-            fecharModalConfirmacao();
-            modal.style.pointerEvents = 'auto';
-            caledarArea.style.pointerEvents = 'auto';
-        })
-    }
-
-    function fecharModalConfirmacao() {
-        let modalConfirmacao = document.getElementById('modal-confirmacao');
-        modalConfirmacao.style.display = 'none';
-        caledarArea.style.pointerEvents = 'auto';
-    }
 
     function moverEvento(info) {
         let id = info.event.id
