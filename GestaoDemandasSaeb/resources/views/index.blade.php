@@ -18,6 +18,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
                 <form action="{{ route('evento.store') }}" method="post" id="form-add-event">
+                    @csrf
                     <div class="modal-body">
                         <input type="hidden" name="id" id="id">                    
                         <input type="hidden" name="action" id="action" value="">
@@ -66,24 +67,61 @@
         </div> 
     </div>
 
-    <!-- <div class="container-modal-confirmacao"> -->
-    <div class="modal fade" id="modalEvento" tabindex="-1">
-        <div class="modal-confirmacao" id="modal-confirmacao">
-            <div class="title-confirmacao">
-                <h4>Você confirma exclusão do evento? <br>Esta ação não pode ser desfeita!</h4>
+    <div class="modal fade"
+     id="modalConfirmacaoExclusao"
+     tabindex="-1"
+     aria-labelledby="tituloConfirmacaoExclusao"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title"
+                    id="tituloConfirmacaoExclusao">
+                    Confirmar exclusão
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Fechar">
+                </button>
             </div>
-            <div class="buttons-confirmacao">
-                <button type="submit" id="button-sim">SIM</button>
-                <button type="submit" id="button-nao">NÃO</button>
+
+            <div class="modal-body">
+                <p>
+                    Deseja realmente excluir este evento? <br>
+                    Essa ação não poderá ser desfeita.
+                </p>
             </div>
+
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+
+                <button type="button"
+                        class="btn btn-danger"
+                        id="btnConfirmarExclusao">
+                    Excluir evento
+                </button>
+            </div>
+
         </div>
     </div>
+</div>
 
     <div class="calendar-area">
         <div class="calendar-area-header">
             
         </div>
-        <div id='calendar'></div>
+        <div id="calendar"
+            data-eventos="{{ $eventos->toJson()}}">
+        </div>
     </div>
 
     <script src="{{ asset('dist/index.global.min.js') }}"></script>
