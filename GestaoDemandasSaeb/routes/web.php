@@ -17,9 +17,7 @@ use App\Http\Controllers\EventoController;
 
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [EventoController::class, 'index']);
 
 Route::get('/index-evento', [EventoController::class, 'index'])->name('evento.index');
 Route::get('/create-evento', [EventoController::class, 'create'])->name('evento.create');
